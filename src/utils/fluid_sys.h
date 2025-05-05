@@ -120,6 +120,9 @@
 #elif OSAL_embedded
 #include "fluid_sys_embedded.h"
 #include "fluid_sys_generic.h"
+#elif OSAL_posix
+#include "fluid_sys_posix.h"
+#include "fluid_sys_generic.h"
 #else
 #error "no OS abstraction configured"
 #endif

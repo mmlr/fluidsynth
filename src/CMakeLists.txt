@@ -457,6 +457,13 @@ target_link_libraries ( libfluidsynth PRIVATE libfluidsynth-OBJ )
 
 set ( fluidsynth_SOURCES fluidsynth.c )
 
+if ( osal STREQUAL "posix" )
+  set ( fluidsynth_SOURCES ${fluidsynth_SOURCES}
+    utils/fluid_sys.c
+    utils/fluid_sys_${osal}.c
+  )
+endif ( osal STREQUAL "posix" )
+
 if ( WASAPI_SUPPORT )
   set ( fluidsynth_SOURCES ${fluidsynth_SOURCES} fluid_wasapi_device_enumerate.c )
 endif ( WASAPI_SUPPORT )
