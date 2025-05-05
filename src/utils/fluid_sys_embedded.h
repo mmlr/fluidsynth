@@ -95,44 +95,18 @@ typedef int fluid_rec_mutex_t;
 typedef bool fluid_cond_mutex_t;
 #define fluid_cond_mutex_lock(m)        fluid_mutex_lock(*(m))
 #define fluid_cond_mutex_unlock(m)      fluid_mutex_unlock(*(m))
-
-static FLUID_INLINE fluid_cond_mutex_t *
-new_fluid_cond_mutex(void)
-{
-    fluid_cond_mutex_t *mutex;
-    mutex = FLUID_NEW(fluid_cond_mutex_t);
-    fluid_mutex_init(*mutex);
-    return (mutex);
-}
-
-static FLUID_INLINE void
-delete_fluid_cond_mutex(fluid_cond_mutex_t *m)
-{
-    fluid_return_if_fail(m != NULL);
-    fluid_mutex_destroy(*m);
-    fluid_free(m);
-}
+#define new_fluid_cond_mutex            new_fluid_cond_mutex_generic
+#define delete_fluid_cond_mutex         delete_fluid_cond_mutex_generic
 
 /* Thread condition signaling */
 typedef int fluid_cond_t;
+#define fluid_cond_init(cond)           (cond = 0)
+#define fluid_cond_destroy(cond)        /* nothing */
 #define fluid_cond_signal(cond)         /* nothing */
 #define fluid_cond_broadcast(cond)      /* nothing */
 #define fluid_cond_wait(cond, mutex)    /* nothing */
-
-static FLUID_INLINE fluid_cond_t *
-new_fluid_cond(void)
-{
-    fluid_cond_t *cond;
-    cond = FLUID_NEW(fluid_cond_t);
-    return (cond);
-}
-
-static FLUID_INLINE void
-delete_fluid_cond(fluid_cond_t *cond)
-{
-    fluid_return_if_fail(cond != NULL);
-    fluid_free(cond);
-}
+#define new_fluid_cond                  new_fluid_cond_generic
+#define delete_fluid_cond               delete_fluid_cond_generic
 
 /* Thread private data */
 
